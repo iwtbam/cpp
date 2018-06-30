@@ -12,7 +12,7 @@ void Swap(_ElemType& elem1, _ElemType& elem2)
 }
 
 template<typename ElemType>
-void BubbleSort(std::vector<ElemType>& elems, std::function<bool(ElemType, ElemType)> compare)
+void BubbleSort(std::vector<ElemType>& elems, std::function<bool(ElemType, ElemType)> compare = [](ElemType elem1,ElemType elem2)-> bool { return elem1 > elem2; })
 {
     for(int i = 0;i<elems.size()-1 ;i++)
     {
@@ -28,14 +28,14 @@ void BubbleSort(std::vector<ElemType>& elems, std::function<bool(ElemType, ElemT
 
 bool greater(int left, int right)
 {
-    return left > right;
+    return left < right;
 }
 
 
 int main()
 {
     std::vector<int> elems = {1,3,5,32,0,535,-19,4543,0,-7};
-    BubbleSort<int>(elems,greater);
+    BubbleSort<int>(elems);
     for(int i = 0;i<elems.size();i++)
     {
         std::cout<<elems.at(i)<<std::endl;
