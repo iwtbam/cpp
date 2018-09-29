@@ -18,30 +18,17 @@ class Solution {
 public:
     ListNode* EntryNodeOfLoop(ListNode* pHead)
     {
-
-        if(pHead == nullptr)
-            return nullptr;
+        map<ListNode*, int> record;
+        ListNode* node = pHead;
         
-        ListNode* node1 = pHead;
-        ListNode* node2 = pHead->next;
-        
-        while(node1->next)
+        while(node)
         {
-            node1 = node1->next;
-            if(node2->next && node2->next->next)
-                node2 = node2->next->next;
-            else
-                return nullptr;
-            if(node1 == node2);
+            if(record[node]++ > 1)
+                return node;
+            
+            node = node->next;
         }
-
+        
         return nullptr;
     }
 };
-
-int main()
-{
-    map<ListNode*, int> im;
-    cout << im[1] << endl;
-    return 0;
-}
