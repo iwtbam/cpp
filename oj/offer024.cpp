@@ -19,8 +19,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* deleteDuplication(ListNode* pHead)
-    {
-        
+    { 
         map<int, int> record;
         ListNode* node = pHead;
         while(node)
