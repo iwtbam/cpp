@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 #if defined(S1)
 
 // 超时
@@ -47,15 +48,36 @@ public:
     }
 };
 #else 
+
 class Solution {
 public:
 
     bool isMatch(string s, string p) 
     {
-        vector<int> vec(s.size(), 0);
-        return false;   
+        vector<int> vec(s.size() + 1, 0);
+        vector<vector<int>> vec2(p.size() + 1, vec);
+        
+        vec2[0][0] = 1;
+
+        for(int i = 1; i <= p.size(); i++)
+        {
+            vec2[i][0] = p[i-1]=='*' && vec2[i-1][0];
+
+            for(int j = 1; j <= s.size(); j++)
+            {
+                if(p[i-1]=='*')
+                    vec2[i][j] = vec2[i-1][j-1] || vec2[i][j-1] || vec2[i-1][j];    
+                else
+                {
+                    vec2[i][j] = vec2[i-1][j-1] && (s[j-1]==p[i-1] || p[i-1] == '?');
+                }
+            }
+        }
+
+        return vec2[p.size()][s.size()];   
     }
 };
+
 #endif
 
 int main()
@@ -77,3 +99,8 @@ int main()
     cout << r << endl;
     return 0;
 }
+
+// 1 0 0 1 0 1 0
+// 0 0 0 1 1 0 1
+// 1 0 0 1 1 1 1
+// 1 0 0 1 0 1 0
