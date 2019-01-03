@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -51,10 +52,22 @@ public:
 };
 
 #else
-class Solution{
+class Solution {
 public:
-    int lengthOfLongestSubstring(string s){
+    int lengthOfLongestSubstring(string s) {
         
+        if(!s.size())
+            return 0;
+        
+        int pos[128], len = 0;
+        memset(pos, 0, sizeof(pos));
+                
+       for(int i = 0, j = 0; j < s.size(); j++){
+           i = max(pos[s.at(j)], i);
+           len = max(len, j - i + 1);
+           pos[s.at(j)] = j + 1;
+       }
+        return len;
     }
 };
 #endif
