@@ -10,6 +10,8 @@ using namespace std;
 
 
 #ifdef S1
+
+
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
