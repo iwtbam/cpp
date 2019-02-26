@@ -1,0 +1,7 @@
+<root>
+    <list>
+        <prob>1<prob>
+        <prob>2<prob>
+    </list>
+    <price>14</price>
+</root>
