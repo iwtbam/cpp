@@ -1,5 +1,5 @@
 <root>
-    <list>
+    <list a="1" b="2">
         <prob>1<prob>
         <prob>2<prob>
     </list>
