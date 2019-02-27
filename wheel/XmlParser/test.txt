@@ -1,7 +1,7 @@
 <root>
     <list a="1" b="2">
-        <prob>1<prob>
-        <prob>2<prob>
+        <prob>1</prob>
+        <prob>2</prob>
     </list>
     <price>14</price>
 </root>
