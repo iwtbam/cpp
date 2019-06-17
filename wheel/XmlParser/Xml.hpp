@@ -75,8 +75,7 @@ namespace xml {
 
     XmlParser::vector_xmlnode_t XmlParser::ParseHelper(std::string content)
     {
-        // std::cout << content << std::endl;
-
+      
         XmlParser::vector_xmlnode_t children = {};
         std::regex r(XmlParser::LABEL_PATTERN);
         for(std::sregex_iterator it(content.begin(), content.end(),r), end_it {}; it!=end_it;it++)
@@ -85,17 +84,18 @@ namespace xml {
             node.lable = it->str(1);
             auto attr_content = it->str(2);
             node.value = it->str(3);
-            std::cout << node.lable << std::endl;
-            std::cout << node.value << std::endl;
             std::regex r2(iwtbam::xml::XmlParser::ATTRIB_PATTERN);
+
             for(std::sregex_iterator attr_it(attr_content.begin(), attr_content.end(),r2), attr_end_it; attr_it!=attr_end_it; attr_it++)
             {
                 auto key = strings::strip(attr_it->str(1));
                 auto value = strings::strip(attr_it->str(2));
                 node.attributes[key] = value; 
             }
+
             node.children = ParseHelper(node.value);
             children.push_back(node);
+
         }
 
         if(children.empty())

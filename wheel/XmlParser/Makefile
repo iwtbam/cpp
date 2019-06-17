@@ -10,4 +10,4 @@ $(target):$(SRC)
 .PHONY:clean
 
 clean:
-	rm -rf *.exe
+	rm -rf *.exe *.o
