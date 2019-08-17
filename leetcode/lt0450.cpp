@@ -3,28 +3,68 @@ struct TreeNode
     int val;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(int x):val(x),left(nullptr),right(nullptr){}
+    TreeNode(int x):val(x), left(nullptr), right(nullptr){}
 };
 
 class Solution {
 public:
     TreeNode* deleteNode(TreeNode* root, int key) {
-        return preorder(root, key);
-    }
-
-    TreeNode* preorder(TreeNode* root, int key)
-    {
-        if(root)
+        
+        if(root == nullptr)
+            return nullptr;
+        
+        TreeNode* target = root;
+        TreeNode* pre = nullptr;
+        while(target && target->val != key)
         {
-            if(root->val == key)
-                return root;
-            
-            TreeNode* res = preorder(root->left, key);
-            if(res==nullptr)
-                res = preorder(root->right, key);
-            return res;
+            pre = target;
+            if(target->val > key)
+                target = target->left;
+            else
+                target = target->right;
         }
-
-        return nullptr;
+        
+       
+        
+        if(target == nullptr)
+            return root;
+        
+        TreeNode* node = target;
+            
+        if(node->left)
+        {
+            pre = node;
+            node = node->left;
+            while(node->right){
+                pre = node;
+                node = node->right;
+            }
+        }
+        else
+        {
+            if(node->right)
+            {
+                pre = node;
+                node = node->right;
+                while(node->left){
+                    pre = node;
+                    node = node->left;
+                }
+            }
+        }
+        
+        target->val = node->val;
+        
+        if(pre == nullptr)
+            return nullptr;
+        
+        TreeNode* next = node->left ? node->left : node->right;
+        
+        if(pre->left == node)
+            pre->left = next;
+        else
+            pre->right = next;
+        
+        return root;
     }
 };
